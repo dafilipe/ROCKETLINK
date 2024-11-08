@@ -3,7 +3,7 @@ import time
 from rocketsimu import voo  # Importa a simulação de voo
 
 # Configurações do cliente
-HOST = '127.0.0.1'  # Endereço do servidor
+HOST = '192.168.1.244'  # Endereço do servidor
 PORT = 65440        # Porta do servidor
 
 # Criação do socket do cliente

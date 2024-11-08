@@ -10,7 +10,7 @@ vento = random.uniform(0, 5)  # vento entre 0 e 5 m/s
 cap_motor = 15  # aceleração máxima do motor em m/s^2
 burn_rate = 0.5  # taxa de queima de combustível em kg/s
 tempo_voo = 0  # tempo de voo (s)
-tempo_maximo_voo = 50  # tempo máximo do voo em segundos
+tempo_maximo_voo = 100  # tempo máximo do voo em segundos
 
 def voo():
     global massa, altitude_inicial, velocidade_inicial, tempo_voo

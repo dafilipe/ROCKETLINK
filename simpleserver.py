@@ -2,7 +2,7 @@ import socket
 import rocketsimu
 
 
-HOST = "127.0.0.1"
+HOST = "192.168.1.244"
 PORT = 65440
 
 #criar um server
@@ -22,3 +22,4 @@ with conn:
         if not data:
             break
         print(f"{data.decode('utf-8')}")
+        
