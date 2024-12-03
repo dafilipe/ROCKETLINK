@@ -19,17 +19,15 @@ def voo():
     velocidade = velocidade_inicial
     tempo = 0
     massa_atual = massa
-
+    aceleracao = cap_motor - g #condiçao inicial
     # Simulação do voo
     while tempo < tempo_maximo_voo and altura >= 0:  # O voo termina quando o tempo máximo for alcançado ou a altura for negativa
         # Calcular a aceleração do foguete
         if massa_atual > massa_vazio:
-            aceleracao = cap_motor - g  # Aceleração do foguete enquanto há combustível
             massa_atual = massa_atual - (burn_rate * 0.1)  # O combustível diminui a cada intervalo de tempo
             velocidade += aceleracao * 0.1  # Atualiza a velocidade com a aceleração
             altura += velocidade * 0.1  # Atualiza a altura com a velocidade
             tempo += 0.1  # Atualiza o tempo                         
-            velocidade += vento
         else:
             aceleracao = 9.81  # Apenas a gravidade atua após o combustível acabar
             velocidade -= aceleracao * 0.1  # Atualiza a velocidade com a aceleração
