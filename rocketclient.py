@@ -35,8 +35,15 @@ for tempo, altura, velocidade, massa in voo():
     massavector.append(massa)
     
     # Mandamos os dados para o servidor
-    client_socket.sendall(mensagem.encode())
-    print(f"Enviado para o servidor: {mensagem}")
+    #possibilidade de perca de dados
+    if random.random() < 0.8:  # 80% de chance de processar o pacote
+        print("enviou")
+        client_socket.sendall(mensagem.encode())
+        print(f"Enviado para o servidor: {mensagem}")
+    else:  # 20% de chance de ignorar o pacote
+        print("perdeu-se")
+        time.sleep(0.1)
+    
     time.sleep(0.1)
 
 #encontramos os highligths do voo

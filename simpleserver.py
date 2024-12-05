@@ -8,6 +8,7 @@ PORT = 65440
 
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:  #criar um server
+     s.bind((HOST, PORT))
      s.listen() 
      print("esperando conexão...")
      conn, addr = s.accept()  
