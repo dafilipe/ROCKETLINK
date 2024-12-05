@@ -1,7 +1,6 @@
 import socket
 import time
 from rocketsimu import voo  # Importa a simulação de voo
-import random
 
 # Configurações do cliente
 HOST = '127.0.0.1'  # Endereço do servidor
@@ -16,33 +15,36 @@ massavector= []
 # Criação do socket do cliente
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect((HOST, PORT))
-#receber a confirmaçao para comecar a voar
-input ("pressione uma tecla para iniciarmos o VOO!!!!")
+
+# Receber a confirmação para começar a voar
+input("Pressione uma tecla para iniciarmos o VOO!!!!")
 
 for tempo, altura, velocidade, massa in voo():
     # Cria a mensagem a ser enviada para o servidor
-    randomval = random.randint(1, 10)
-    mensagem = f"Tempo: {tempo+randomval:.1f}s | Altura: {altura+randomval:.2f}m | Velocidade: {velocidade+randomval:.2f}m/s | Massa: {massa+randomval:.2f}kg"
+    mensagem = f"Tempo: {tempo:.1f}s | Altura: {altura:.2f}m | Velocidade: {velocidade:.2f}m/s | Massa: {massa:.2f}kg"
     tempovector.append(tempo)
     alturavector.append(altura)
     velocidadevector.append(velocidade)
     massavector.append(massa)
-    # os valores são guardados em voo por causa dos valores random e depois de voo serem estudados
     
     client_socket.sendall(mensagem.encode())  # Envia a mensagem para o servidor
     print(f"Enviado para o servidor: {mensagem}")
     
     time.sleep(0.1)  # Aguarda 0.1s antes de enviar o próximo dado
-    
 
-client_socket.sendall(str(mensagem_pos_voo).encode())
-time.sleep(2)
-#espera 2 segundos
-client_socket.sendall(str(tempovector).encode())
-client_socket.sendall(str(alturavector).encode())
-client_socket.sendall(str(velocidadevector).encode())
-client_socket.sendall(str(massavector).encode())
+# Calcula os valores máximos após o loop de voo
+client_socket.sendall(mensagem_pos_voo.encode())
+tempo_max = max(tempovector) 
+altura_max = max(alturavector) 
+velocidade_max = max(velocidadevector)
 
-print("Enviado com sucesso")
+# Formata os valores com duas casas decimais e converte para string
+dados_finais = f"Altura maxima = {tempo_max:.2f} que foi atingida com uma velocidade maxima = {altura_max:.2f} num voo de {velocidade_max:.2f}"
 
+# Envia os valores máximos para o servidor
+client_socket.sendall(dados_finais.encode()) 
+
+print("Valores máximos enviados com sucesso")
+
+# Fecha a conexão após enviar todos os dados
 client_socket.close()
